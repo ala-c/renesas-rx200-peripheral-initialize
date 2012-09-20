@@ -6,45 +6,45 @@
 void XtalInit()
 {
 	/*
-	‚±‚ÌƒR[ƒh‚Í@20MHz‚ÌƒƒCƒ“ƒNƒƒbƒN…»A32kHz‚ÌƒTƒu…»‚ð—˜—p‚µ
-	PLL‰ñ˜H‚ð—˜—p‚µ‚ÄƒƒCƒ“ƒNƒƒbƒN‚ð2•ªŽü10’ü”{‚Ì100MH‚š‚Å“®ì‚³‚¹
-	CPUˆ—ƒƒCƒ“ƒNƒƒbƒN(ICLK)‚ðPLL2•ªŽü‚Ì50MH‚šiÅ‘åj
-	ŠeŽíƒyƒŠƒtƒFƒ‰ƒ‹‚Ìˆ——pƒNƒƒbƒN(PCLKB)‚ð25MHz(Å‘å‚Í32MH‚š)
-	ƒAƒiƒƒO•ÏŠ·‹@”\S12ADê—pƒNƒƒbƒN(PCLKD)‚ð50MH‚šiÅ‘åj
-	FlashIF‚É‹Ÿ‹‹‚³‚ê‚éFlashIFƒNƒƒbƒNiFCLKj‚ð25MH‚š(Å‘å‚Í32MH‚šA‘‚«ž‚ÝŽž‚Í‚SMH‚š§ŒÀ‚ ‚è)
-	ŠO•”ƒoƒX‚É‹Ÿ‹‹‚³‚ê‚éŠO•”ƒoƒXƒNƒƒbƒNiBCLKj‚ð25MHz (max)
-	ƒŠƒAƒ‹ƒ^ƒCƒ€ƒNƒƒbƒN‚É‹Ÿ‹‹‚³‚ê‚éRTCê—pƒTƒuƒNƒƒbƒNiRTCSCLKj‚ð32.768kHz
-	IWDT‚É‹Ÿ‹‹‚³‚ê‚éIWDTê—p’á‘¬ƒNƒƒbƒNiIWDTCLKj‚ð125kHz
-	‚É‚µ‚Ü‚·B
+	ã“ã®ã‚³ãƒ¼ãƒ‰ã¯ã€€20MHzã®ãƒ¡ã‚¤ãƒ³ã‚¯ãƒ­ãƒƒã‚¯æ°´æ™¶ã€32kHzã®ã‚µãƒ–æ°´æ™¶ã‚’åˆ©ç”¨ã—
+	PLLå›žè·¯ã‚’åˆ©ç”¨ã—ã¦ãƒ¡ã‚¤ãƒ³ã‚¯ãƒ­ãƒƒã‚¯ã‚’2åˆ†å‘¨10é€“å€ã®100MHï½šã§å‹•ä½œã•ã›
+	CPUå‡¦ç†ãƒ¡ã‚¤ãƒ³ã‚¯ãƒ­ãƒƒã‚¯(ICLK)ã‚’PLL2åˆ†å‘¨ã®50MHï½šï¼ˆæœ€å¤§ï¼‰
+	å„ç¨®ãƒšãƒªãƒ•ã‚§ãƒ©ãƒ«ã®å‡¦ç†ç”¨ã‚¯ãƒ­ãƒƒã‚¯(PCLKB)ã‚’25MHz(æœ€å¤§ã¯32MHï½š)
+	ã‚¢ãƒŠãƒ­ã‚°å¤‰æ›æ©Ÿèƒ½S12ADå°‚ç”¨ã‚¯ãƒ­ãƒƒã‚¯(PCLKD)ã‚’50MHï½šï¼ˆæœ€å¤§ï¼‰
+	FlashIFã«ä¾›çµ¦ã•ã‚Œã‚‹FlashIFã‚¯ãƒ­ãƒƒã‚¯ï¼ˆFCLKï¼‰ã‚’25MHï½š(æœ€å¤§ã¯32MHï½šã€æ›¸ãè¾¼ã¿æ™‚ã¯ï¼”MHï½šåˆ¶é™ã‚ã‚Š)
+	å¤–éƒ¨ãƒã‚¹ã«ä¾›çµ¦ã•ã‚Œã‚‹å¤–éƒ¨ãƒã‚¹ã‚¯ãƒ­ãƒƒã‚¯ï¼ˆBCLKï¼‰ã‚’25MHz (max)
+	ãƒªã‚¢ãƒ«ã‚¿ã‚¤ãƒ ã‚¯ãƒ­ãƒƒã‚¯ã«ä¾›çµ¦ã•ã‚Œã‚‹RTCå°‚ç”¨ã‚µãƒ–ã‚¯ãƒ­ãƒƒã‚¯ï¼ˆRTCSCLKï¼‰ã‚’32.768kHz
+	IWDTã«ä¾›çµ¦ã•ã‚Œã‚‹IWDTå°‚ç”¨ä½Žé€Ÿã‚¯ãƒ­ãƒƒã‚¯ï¼ˆIWDTCLKï¼‰ã‚’125kHz
+	ã«ã—ã¾ã™ã€‚
 	*/
 	
 	//for reset oscillator config protecton.
 	volatile unsigned char * cp = (unsigned char *)0x00080200;
 	
 	
-	/* ---- Disable write protection ---- ƒ‰ƒCƒgƒvƒƒeƒNƒVƒ‡ƒ“‚Ì‰ðœ ‚±‚ê‚ð‚â‚ç‚È‚¢‚Æ“Á’è‚ÌƒŒƒWƒXƒ^‚Ö‚Ì‘‚«ž‚Ý‚ªo—ˆ‚È‚¢*/
+	/* ---- Disable write protection ---- ãƒ©ã‚¤ãƒˆãƒ—ãƒ­ãƒ†ã‚¯ã‚·ãƒ§ãƒ³ã®è§£é™¤ ã“ã‚Œã‚’ã‚„ã‚‰ãªã„ã¨ç‰¹å®šã®ãƒ¬ã‚¸ã‚¹ã‚¿ã¸ã®æ›¸ãè¾¼ã¿ãŒå‡ºæ¥ãªã„*/
     SYSTEM.PRCR.WORD = 0xA507;              /* Enable writing to registers */
                                             /* related to the clock generation circuit. */
                                             /* Enable writing to registers */
                                             /* related to the low power consumption function. */
                                             /* Enable writing to address 0008 0200h. */
     /* ---- Write to address 0008 0200h ---- */
-    *cp = 0x00;	//ƒRƒŒ‚Í•K‚¸‚â‚ç‚È‚¢‚Æƒ_ƒ‚Æ‚Ì‚±‚Æiƒ‹ƒlƒTƒXƒ}ƒjƒ…ƒAƒ‹9.8.1Žg—pã‚Ì’ˆÓ‚æ‚èj
+    *cp = 0x00;	//ã‚³ãƒ¬ã¯å¿…ãšã‚„ã‚‰ãªã„ã¨ãƒ€ãƒ¡ã¨ã®ã“ã¨ï¼ˆãƒ«ãƒã‚µã‚¹ãƒžãƒ‹ãƒ¥ã‚¢ãƒ«9.8.1ä½¿ç”¨ä¸Šã®æ³¨æ„ã‚ˆã‚Šï¼‰
 
     /* ---- Turn off the HOCO power supply ---- */
     SYSTEM.HOCOPCR.BYTE = 0x01;             /* Highspeed On Chip oscillator power supply is turned off. */
 
 	
-    /* ---- Stop the sub-clock ---- ƒTƒuƒNƒƒbƒN‚Í SOSCCR‚ÆRCR3‚Å§Œä‚³‚ê‚Ü‚·*/
+    /* ---- Stop the sub-clock ---- ã‚µãƒ–ã‚¯ãƒ­ãƒƒã‚¯ã¯ SOSCCRã¨RCR3ã§åˆ¶å¾¡ã•ã‚Œã¾ã™*/
     SYSTEM.SOSCCR.BYTE = 0x01;              /* Sub-clock oscillator is stopped. */
     while(SYSTEM.SOSCCR.BYTE != 0x01){      /* Confirm that the written value can be read correctly. */
     }
-    RTC.RCR3.BYTE = 0x0C;                   /* Sub-clock oscillator is stopped.•W€CL—pƒhƒ‰ƒCƒu”\—Í‚ÉÝ’è */
+    RTC.RCR3.BYTE = 0x0C;                   /* Sub-clock oscillator is stopped.æ¨™æº–CLç”¨ãƒ‰ãƒ©ã‚¤ãƒ–èƒ½åŠ›ã«è¨­å®š */
     while(RTC.RCR3.BYTE != 0x0C){           /* Confirm that the written value can be read correctly. */
     }
 
-@   /* ---- Set the main clock oscillator drive capability ƒƒCƒ“ƒNƒƒbƒN”­¶Ý’è---- */
-    SYSTEM.MOFCR.BIT.MODRV = 7;             /* 111b -- 16MHz to 20MHz‚Ì…» */
+ã€€   /* ---- Set the main clock oscillator drive capability ãƒ¡ã‚¤ãƒ³ã‚¯ãƒ­ãƒƒã‚¯ç™ºç”Ÿè¨­å®š---- */
+    SYSTEM.MOFCR.BIT.MODRV = 7;             /* 111b -- 16MHz to 20MHzã®æ°´æ™¶ */
                                             /* 000b -- other xtal  */
 											
 	SYSTEM.MOFCR.BIT.MODRV2 = 2;  			/* 01b -- 1MHz to 8MHz */
@@ -52,7 +52,7 @@ void XtalInit()
 											/* 11b -- 16MHz to 20MHz */
 											
     /* ---- Set wait time until the main clock oscillator stabilizes ---- */
-    SYSTEM.MOSCWTCR.BYTE = 0x0D;            /* Wait time is 131072 cycles ƒrƒbƒg‚É‚æ‚Á‚ÄƒEƒFƒCƒg‰ñ”‚ª•Ï‚í‚è‚Ü‚·‚ªA“Á‚É‚±‚ÌÝ’è‚Å–â‘è‚È‚µ */
+    SYSTEM.MOSCWTCR.BYTE = 0x0D;            /* Wait time is 131072 cycles ãƒ“ãƒƒãƒˆã«ã‚ˆã£ã¦ã‚¦ã‚§ã‚¤ãƒˆå›žæ•°ãŒå¤‰ã‚ã‚Šã¾ã™ãŒã€ç‰¹ã«ã“ã®è¨­å®šã§å•é¡Œãªã— */
 		
 	/* ---- Operate the main clock oscillator ---- */
     SYSTEM.MOSCCR.BYTE = 0x00;              /* Main clock oscillator is operating. */
@@ -60,7 +60,7 @@ void XtalInit()
     }
 
 	
-	//PLLˆ—
+	//PLLå‡¦ç†
 	/* ---- Set the PLL division ratio and multiplication factor ---- */
     SYSTEM.PLLCR.BIT.PLIDIV = 1;		/* PLL input division ratio is divide-by-2. */
 	SYSTEM.PLLCR.BIT.STC = 9;           /* Frequency multiplication factor is multiply-by-10. */
@@ -74,9 +74,9 @@ void XtalInit()
     cmt0_wait( 10500L/FOR_CMT0_TIME+1 );    /* Wait until the main clock and PLL clock */
                                             /* oscillation stabilize (10.5 ms). */
 
-	//ƒTƒuƒNƒƒbƒNˆ—	
+	//ã‚µãƒ–ã‚¯ãƒ­ãƒƒã‚¯å‡¦ç†	
 	/* ---- Set the sub-clock oscillator drive ability ---- */
-    RTC.RCR3.BYTE = 0x0C;                   /* Drive ability for standard CL ‘¼‚ÌÝ’è‚Í’áÁ”ï“d—Íƒ‚[ƒh‚ÅŽg‚¤‚ªAƒNƒƒbƒN‚ªˆÀ’è‚µ‚È‚¢*/
+    RTC.RCR3.BYTE = 0x0C;                   /* Drive ability for standard CL ä»–ã®è¨­å®šã¯ä½Žæ¶ˆè²»é›»åŠ›ãƒ¢ãƒ¼ãƒ‰ã§ä½¿ã†ãŒã€ã‚¯ãƒ­ãƒƒã‚¯ãŒå®‰å®šã—ãªã„*/
     while(RTC.RCR3.BYTE != 0x0C){           /* Confirm that the written value can be read correctly. */
     }
 	
@@ -101,7 +101,7 @@ void XtalInit()
     while(SYSTEM.OPCCR.BIT.OPCMTSF == 1){
     }
 
-	//ƒVƒXƒeƒ€ƒNƒƒbƒNÝ’è@--@ƒyƒŠƒtƒFƒ‰ƒ‹—p‚ÌƒNƒƒbƒNÝ’è
+	//ã‚·ã‚¹ãƒ†ãƒ ã‚¯ãƒ­ãƒƒã‚¯è¨­å®šã€€--ã€€ãƒšãƒªãƒ•ã‚§ãƒ©ãƒ«ç”¨ã®ã‚¯ãƒ­ãƒƒã‚¯è¨­å®š
 	SYSTEM.SCKCR.BIT.FCK = 2;		// FlashIF clock (FCLK) divide by 4 -> 25MHz
 	SYSTEM.SCKCR.BIT.ICK = 1; 		//System clock (ICLK), divide by 2 -> 50MHz 
 	
